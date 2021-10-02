@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
+</head>
+
+<body>
 
     <div id="LoginScreen">
-      <button id="login">Login with Google</button>
+        <button id="login">Login with Google</button>
     </div>
 
     <div id="dashboard">
-      <div id="userDetails"></div>
-      <button id="logout">Logout</button>
+        <div id="userDetails"></div>
+        <button id="logout">Logout</button>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -23,6 +25,85 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-     <script src="app.js"></script>
-  </body>
+    <script src="app.js"></script>
+</body>
+
 </html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BillBuddy</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+            <div class="search">
+                <div class="container">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="search-todo form-control" placeholder="Filter Bill" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+<br>
+            <div class="container">
+                <div class="todo-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" class="new-todo form-control" placeholder="Enter item name and cost"
+                                    required="true" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="submit-todo btn btn-success">Add Bill</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="todos col-md-12"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCnOJcMO99fi-Zg12BDI-QYXFhHNeM_t88",
+            authDomain: "billbuddy-a1e84.firebaseapp.com",
+            databaseURL: "https://billbuddy-a1e84-default-rtdb.firebaseio.com",
+            projectId: "billbuddy-a1e84",
+            storageBucket: "billbuddy-a1e84.appspot.com",
+            messagingSenderId: "914583831053",
+            appId: "1:914583831053:web:f8ff36db1190a704e54b44",
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    <script src="uuidv4.js"></script>
+    <script src="jquery.js"></script>
+    <script src="main.js"></script>
+</body>
