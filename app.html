@@ -15,6 +15,109 @@
     <div id="dashboard">
         <div id="userDetails"></div>
         <button id="logout">Logout</button>
+  <body>
+    <h2>BillBuddy</h2>
+
+    <div class="containre">
+      <h4>Your Balance</h4>
+      <h1 id="balance">0.00₹</h1>
+
+      <div class="inc-exp-containre">
+        <div>
+          <h4>Income</h4>
+          <p id="money-plus" class="money plus">+0.00₹</p>
+        </div>
+
+        <div>
+          <h4>Expence</h4>
+          <p id="money-minus" class="money minus">-0.00₹</p>
+        </div>
+      </div>
+
+      <h3>Bills</h3>
+
+      <ul id="list" class="list">
+      </ul>
+
+      <h3>Add new Bill</h3>
+
+      <form id="form">
+        <div class="form-control">
+          <label for="text">Text</label>
+          <input type="text" id="text" placeholder="Enter Text..." />
+        </div>
+        <div class="form-control">
+          <label for="amount"
+            >Amount <br />
+          </label>
+          <input type="number" id="amount" placeholder="Enter amount..." />
+        </div>
+        <button class="btn">Add transaction</button>
+      </form>
+    </div>
+    <div class="container">
+        <link rel="stylesheet" href="test.css">
+        <div class="currency-toggler">
+            <span>USD</span>
+            <div class="toggler"></div>
+            <span>INR</span>
+        </div>
+    
+        <div class="product-container">
+    
+            <div class="product">
+
+                <h3>organic banana</h3>
+                <div class="amount">
+                    <span class="dollar">$</span>
+                    <span class="price">4.15</span>
+                </div>
+                <a href="#" class="btn">add to cart</a>
+
+    
+        </div>
+    
+    </div>
+    
+    <script>
+    
+    let toggler = document.querySelector('.toggler');
+    let price = document.querySelectorAll('.price');
+    let dollar = document.querySelectorAll('.dollar');
+    let usd = 72.72;
+    
+    // 1 dollar = 72.72 rupess which is the current rate at 2021 
+    
+    toggler.onclick = () =>{
+    
+        toggler.classList.toggle('active');
+    
+        if(toggler.classList.contains('active')){
+    
+            for(var i = 0; i < dollar.length; i++){
+                dollar[i].innerText = '₹';
+            }
+            for(var k = 0; k < price.length; k++){
+                price[k].innerText = (price[k].innerText * usd).toFixed(2);
+            }
+    
+        }else{
+    
+            for(var i = 0; i < dollar.length; i++){
+                dollar[i].innerText = '$';
+            }
+            for(var k = 0; k < price.length; k++){
+                price[k].innerText = (price[k].innerText / usd).toFixed(2);
+            }
+    
+        }
+    
+    }
+    
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -28,82 +131,4 @@
     <script src="app.js"></script>
 </body>
 
-</html>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>BillBuddy</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <div class="wrapper">
-            <div class="search">
-                <div class="container">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="search-todo form-control" placeholder="Filter Bill" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-<br>
-            <div class="container">
-                <div class="todo-form">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="new-todo form-control" placeholder="Enter item name and cost"
-                                    required="true" />
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="submit-todo btn btn-success">Add Bill</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="todos col-md-12"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCnOJcMO99fi-Zg12BDI-QYXFhHNeM_t88",
-            authDomain: "billbuddy-a1e84.firebaseapp.com",
-            databaseURL: "https://billbuddy-a1e84-default-rtdb.firebaseio.com",
-            projectId: "billbuddy-a1e84",
-            storageBucket: "billbuddy-a1e84.appspot.com",
-            messagingSenderId: "914583831053",
-            appId: "1:914583831053:web:f8ff36db1190a704e54b44",
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-    </script>
-    <script src="uuidv4.js"></script>
-    <script src="jquery.js"></script>
-    <script src="main.js"></script>
-</body>

@@ -1,110 +1,112 @@
-let todos = [];
+const balance = document.getElementById("balance"),
+  moneyPlus = document.getElementById("money-plus"),
+  moneyMinus = document.getElementById("money-minus"),
+  list = document.getElementById("list"),
+  form = document.getElementById("form"),
+  text = document.getElementById("text"),
+  amount = document.getElementById("amount");
 
-const filters = {
-    searchText: '',
-    hideCompleted: false
+// const dummyTransaction = [
+//   { id: 1, text: "Flower", amount: -20 },
+//   { id: 2, text: "Salary", amount: 300 },
+//   { id: 3, text: "Book", amount: -10 },
+//   { id: 4, text: "Camera", amount: 150 },
+// ];
+const localStorageTransaction = JSON.parse(localStorage.getItem("transaction"));
+
+let transaction =
+  localStorage.getItem("transaction") !== null ? localStorageTransaction : [];
+
+// Add Transaction
+function addTransaction(e) {
+  e.preventDefault();
+
+  if (text.value.trim() === "" || amount.value.trim() === "") {
+    alert("Please add Text and Amount");
+  } else {
+    const transactionAdd = {
+      id: generateID(),
+      text: text.value,
+      amount: +amount.value,
+    };
+
+    transaction.push(transactionAdd);
+    addTransactionDOM(transactionAdd);
+    updateValues();
+
+    updateLocalStorage();
+    text.value = "";
+    amount.value = "";
+  }
 }
 
-// this is for filtering the todo
-$('.search-todo').on('input', () =>{
-    filters.searchText = $('.search-todo').val();
-    createList(todos, filters);
-})
-
-// this is for rendering the todo
-const renderTodos = function(){
-    db.collection('todos').get().then(data =>{
-        data.docs.forEach(element =>{
-            const singleTodo = element.data();
-            todos.push(singleTodo);
-        });
-        createList(todos, filters);
-    });
+// Generate Random ID
+function generateID() {
+  return Math.floor(Math.random() * 100000000);
 }
 
-// this is for displaying todos in the browser
-const createList = function (todos, filters) {
-    let count = 0;
-    const filteredTodos = $.grep(todos, element => {
-        return element.name.toLowerCase().includes(filters.searchText.toLowerCase());
-    })
-    $('.todos').empty();
-    filteredTodos.forEach(element =>{
-        let divElement = $('<div class="form-check card singleTodo">');
-        let buttonElement = $('<button class="btn btn-danger float-right">');
-        let labelElement = $('<label class="form-check-label">');
-        let checkboxElement = $('<input type="checkbox" class="form-check-input"/>');
-        let cardBodyElement = $('<div class="card-body">');
+//Add Transaction To DOM list
+function addTransactionDOM(transaction) {
+  //Get Sign
+  const sign = transaction.amount < 0 ? "-" : "+";
 
-        buttonElement.text('X');
-        buttonElement.on('click', ()=>{
-            deleteTodo(element);
-        })
-        labelElement.append('<span>'+element.name+'</span>');
-        cardBodyElement.append(labelElement);
-        cardBodyElement.append(buttonElement);
-        divElement.append(cardBodyElement);
-        $('.todos').append(divElement);
-        if(element.isCompleted == false){
-            count++;
-        }
-    })
+  const item = document.createElement("li");
+
+  //Add Class Based On value
+  item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+
+  item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(
+    transaction.amount
+  )}</span> <button class="delete-btn" onclick="removeTransaction(${
+    transaction.id
+  })">X</button>`;
+
+  list.appendChild(item);
 }
 
-// this is for updating todo
-const toggleTodo = function (element) {
-    const new_todo = {
-        id: element.id,
-        name: element.name
-    }
-    db.collection('todos').doc(element.id).update(new_todo).then(()=>{
-        console.log('Updated successfully.');
-        element.isCompleted = !element.isCompleted;
-        createList(todos, filters);
-    }).catch(error=>{
-        console.log('Error occured', error);
-    })
+// Update The Balance , Income and expence
+function updateValues() {
+  const amounts = transaction.map((trans) => trans.amount);
+
+  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+  const income = amounts
+    .filter((item) => item > 0)
+    .reduce((acc, item) => (acc += item), 0)
+    .toFixed(2);
+
+  const expense = (
+    amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
+    -1
+  ).toFixed(2);
+
+  balance.innerText = `${total}₹`;
+  moneyPlus.innerText = `${income}₹`;
+  moneyMinus.innerText = `${expense}₹`;
 }
 
-// this is for deleting a todo
-const deleteTodo = function (element) {
-    db.collection('todos').doc(element.id).delete().then(()=>{
-        console.log('Bill deleted successfully.');
-        const todoIndex = todos.findIndex(todo => todo.id === element.id);
-        if(todoIndex != -1){
-            todos.splice(todoIndex, 1);
-            createList(todos, filters);
-        }
-    });
-};
+// Remove transaction By ID
+function removeTransaction(id) {
+  transaction = transaction.filter((trans) => trans.id !== id);
 
-// this is for adding a bill
-$('.submit-todo').click((event) => {
-    event.preventDefault();
-    const id = uuidv4();
-    const todo = {
-        name: $('.new-todo').val(),
-        isCompleted: false,
-        id: id
-    }
-    db.collection('todos').doc(id).set(todo).then(()=>{
-        console.log('Bill added successfully!');
-        $('.new-todo').val('');
-        todos.push(todo);
-        createList(todos, filters);
-    }).catch(error=>{
-        console.log('Error occured', e);
-    })
-})
+  updateLocalStorage();
 
-
-const hideCompleted = function (todos, filters) {
-    const filteredTodos = $.grep(todos, (element) => {
-        if(element.isCompleted == filters.hideCompleted){
-            return element;
-        }
-    })
-    createList(filteredTodos, filters);
+  init();
 }
 
-renderTodos();
+// Update Local Storage Transaction
+function updateLocalStorage() {
+  localStorage.setItem("transaction", JSON.stringify(transaction));
+}
+
+//Init App
+function init() {
+  list.innerHTML = "";
+
+  transaction.forEach(addTransactionDOM);
+  updateValues();
+}
+init();
+
+form.addEventListener("submit", addTransaction);
+
