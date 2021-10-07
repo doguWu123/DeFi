@@ -15,7 +15,7 @@
 
     <div id="dashboard">
         <div id="userDetails"></div>
-        <button id="logout">Logout</button>
+        <button id="logout" class="btn btn-danger">Logout</button>
   <body>
     <h2>BillBuddy</h2>
 
@@ -37,34 +37,39 @@
 
       <h3>Bills</h3>
 
-      <ul id="list" class="list">
-      </ul>
+
+
+        <!-- <li        id="list" class="list-group"
+        >{}</li> -->
+
+      
+          <li class="list-group-item" id="list" style="">{}</li>
+
+       
+     
 
       <h3>Add new Bill</h3>
 
-      <form id="form">
-        <div class="form-control">
-          <label for="text">Text</label>
-          <input type="text" id="text" placeholder="Enter Text..." />
-        </div>
-        <div class="form-control">
-          <label for="amount"
-            >Amount <br />
-          </label>
-          <input type="number" id="amount" placeholder="Enter amount..." />
-        </div>
-        <button class="btn">Add transaction</button>
-      </form>
+      <center><form id="form">
+
+          <input type="text" id="text" class="form-control" placeholder="Enter Item..." style="width: 80%;"/>
+<br>
+          <input type="number" id="amount" class="form-control" placeholder="Enter amount..." style="width: 80%;"/>
+ <br>
+        <button class="btn btn-success">Insert!</button>
+
+      </form></center>
+      <br>
     </div>
-    <div class="container">
+    <!-- <div class="container">
         <link rel="stylesheet" href="test.css">
         <div class="currency-toggler">
             <span>USD</span>
             <div class="toggler"></div>
             <span>INR</span>
-        </div>
+        </div> -->
     
-        <div class="product-container">
+        <!-- <div class="product-container">
     
             <div class="product">
 
@@ -115,7 +120,7 @@
     
     }
     
-    </script>
+    </script> -->
     <script src="main.js"></script>
   </body>
 </html>
