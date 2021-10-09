@@ -31,9 +31,8 @@ function GoogleLogin(){
 
 function showUserDetails(user){
   document.getElementById('userDetails').innerHTML = `
-    <img src="${user.photoURL}" style="width:10%">
-    <p>Name: ${user.displayName}</p>
-    <p>Email: ${user.email}</p>
+    <img src="${user.photoURL}" style="width:1%, vertical-align: middle;
+    border-radius: 4%;">
   `
 }
 
