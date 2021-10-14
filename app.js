@@ -1,11 +1,11 @@
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyBRqICrygap0CF-F7gZjuThfr96cNyELfk",
-  authDomain: "auth-blog-c2777.firebaseapp.com",
-  projectId: "auth-blog-c2777",
-  storageBucket: "auth-blog-c2777.appspot.com",
-  messagingSenderId: "228138714063",
-  appId: "1:228138714063:web:f41c3a5981041d137148ba"
+  apiKey: "AIzaSyCJilwravidZjFTHJOfSnZaZ3xcWSKlcyo",
+  authDomain: "defi-b7415.firebaseapp.com",
+  projectId: "defi-b7415",
+  storageBucket: "defi-b7415.appspot.com",
+  messagingSenderId: "132802953476",
+  appId: "1:132802953476:web:a44a19f35dcf9a7127d051",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
