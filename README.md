@@ -1,3 +1,3 @@
-# bill-buddy
-Handle you bills with BillBuddy
+# DeFi
+Handle you bills with DeFi!
 
