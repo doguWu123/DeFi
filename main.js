@@ -1,5 +1,6 @@
 const balance = document.getElementById("balance"),
   moneyPlus = document.getElementById("money-plus"),
+  moneyMinus = document.getElementById("money-minus"),
   list = document.getElementById("list"),
   form = document.getElementById("form"),
   text = document.getElementById("text"),
@@ -47,7 +48,7 @@ function generateID() {
 //Add Transaction To DOM list
 function addTransactionDOM(transaction) {
   //Get Sign
-  const sign = transaction.amount < 0 ? "₹" : "₹";
+  const sign = transaction.amount < 0 ? "-" : "+";
 
   const item = document.createElement("li");
 
@@ -56,7 +57,7 @@ function addTransactionDOM(transaction) {
 
   item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(
     transaction.amount
-  )}</span> <button class="btn btn-warning" onclick="removeTransaction(${
+  )}</span> <button class="btn btn-warning" style="margin:2px;" onclick="removeTransaction(${
     transaction.id
   })">X</button>`;
 
@@ -67,15 +68,21 @@ function addTransactionDOM(transaction) {
 function updateValues() {
   const amounts = transaction.map((trans) => trans.amount);
 
+  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   const income = amounts
     .filter((item) => item > 0)
     .reduce((acc, item) => (acc += item), 0)
     .toFixed(2);
 
+  const expense = (
+    amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
+    -1
+  ).toFixed(2);
 
+  balance.innerText = `${total}₹`;
   moneyPlus.innerText = `${income}₹`;
- 
+  moneyMinus.innerText = `${expense}₹`;
 }
 
 // Remove transaction By ID
@@ -102,4 +109,3 @@ function init() {
 init();
 
 form.addEventListener("submit", addTransaction);
-
